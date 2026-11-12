@@ -1,0 +1,21 @@
+@startuml
+
+start
+
+:Ouvrir la séance de TD;
+
+if (Séance planifiée ?) then (Oui)
+  :Accueillir les étudiants;
+  :Enregistrer la présence de chaque étudiant;
+  :Réaliser le TD;
+  :Clôturer la séance;
+  :Produire le bilan des présences;
+else (Non)
+  :Afficher une erreur de programmation;
+  :Corriger la séance;
+  :Reprogrammer la séance;
+endif
+
+stop
+
+@enduml

@@ -1,0 +1,75 @@
+@startuml
+
+class Etudiant {
+  - matricule : String
+  - nom : String
+  - prenom : String
+  - email : String
+}
+
+class Matiere {
+  - id : int
+  - nom : String
+  - code : String
+  - credits : int
+}
+
+class GroupeTD {
+  - id : int
+  - code : String
+  - niveau : String
+  - effectif : int
+}
+
+class SeanceTD {
+  - id : int
+  - dateHeure : DateTime
+  - duree : int
+  - statut : String
+  + programmer() : void
+  + annuler() : void
+}
+
+class Enseignant {
+  - id : int
+  - nom : String
+  - prenom : String
+  - email : String
+}
+
+class Salle {
+  - id : int
+  - code : String
+  - capacite : int
+  - localisation : String
+}
+
+class Presence {
+  - id : int
+  - statut : StatutPresence
+  - heure : DateTime
+  + enregistrer() : void
+}
+
+enum StatutPresence {
+  PRESENT
+  ABSENT
+  RETARD
+  JUSTIFIE
+}
+
+Matiere "1" -- "1..*" GroupeTD : concerne
+GroupeTD "1..*" -- "0..*" Etudiant : regroupe
+GroupeTD "1" *-- "0..*" SeanceTD : planifie
+Enseignant "1" -- "0..*" SeanceTD : anime
+Salle "1" -- "0..*" SeanceTD : accueille
+Etudiant "1" -- "0..*" Presence : possède
+SeanceTD "1" -- "0..*" Presence : enregistre
+
+note right of SeanceTD
+  Une séance ne peut être programmée
+  que si la salle et le responsable
+  sont disponibles.
+end note
+
+@enduml

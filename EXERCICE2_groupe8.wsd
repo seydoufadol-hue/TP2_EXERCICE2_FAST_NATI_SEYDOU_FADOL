@@ -1,0 +1,51 @@
+@startuml
+
+enum Niveau {
+  L1
+  L2
+  L3
+}
+
+class Etudiant {
+  - matricule : String
+  - nom : String
+  - prenom : String
+  - niveau : Niveau
+  + calculerMoyenne() : double
+  + valideUE(ue : UE) : bool
+  + afficherReleve() : void
+}
+
+class Filiere {
+  - code : String
+  - libelle : String
+  + ajouterUE(ue : UE) : void
+}
+
+class UE {
+  - code : String
+  - libelle : String
+  - credit : int
+  + estValidee(etudiant : Etudiant) : bool
+}
+
+class Matiere {
+  - code : String
+  - libelle : String
+  - coefficient : double
+}
+
+class Note {
+  - valeur : double
+  - session : String
+  + estValide() : bool
+}
+
+Etudiant "0..*" --> "1" Filiere : appartient à
+Filiere "1" *-- "1..*" UE : contient
+UE "1" *-- "1..*" Matiere : compose
+Etudiant "1" --> "0..*" Note : obtient
+Matiere "1" --> "0..*" Note : concerne
+Etudiant "1" --> "1" Niveau : possède
+
+@enduml

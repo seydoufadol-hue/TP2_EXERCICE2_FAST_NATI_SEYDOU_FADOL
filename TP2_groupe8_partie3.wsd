@@ -1,0 +1,58 @@
+@startuml
+
+title Programmer une séance de TD
+autonumber
+
+actor Responsable
+participant Portail
+participant Planning
+participant Salle
+participant Notifications
+
+Responsable -> Portail : saisirSeance(matiere, groupe, date, duree)
+Portail -> Planning : verifierDisponibilites(date, duree, responsable)
+Planning -> Salle : verifierSalleDisponible(date, duree)
+Salle --> Planning : salle libre ou conflit
+
+alt disponibilites valides
+  Planning -> Portail : proposerSalle(salle)
+  Responsable -> Portail : confirmer programmation
+  Portail -> Planning : enregistrerSeance()
+  Planning -> Notifications : notifier(enseignant, etudiants)
+  Notifications --> Responsable : confirmation
+else conflit detecte
+  Planning --> Portail : afficherConflit()
+  Portail --> Responsable : demander modification
+end
+
+@enduml
+
+@startuml
+
+title Programmer une séance de TD
+autonumber
+
+actor Responsable
+participant Portail
+participant Planning
+participant Salle
+participant Notifications
+
+Responsable -> Portail : saisirSeance(matiere, groupe, date, duree)
+Portail -> Planning : verifierDisponibilites(date, duree, responsable)
+Planning -> Salle : verifierSalleDisponible(date, duree)
+Salle --> Planning : salle libre ou conflit
+
+alt disponibilites valides
+  Planning -> Portail : proposerSalle(salle)
+  Responsable -> Portail : confirmer programmation
+  Portail -> Planning : enregistrerSeance()
+  Planning -> Notifications : notifier(enseignant, etudiants)
+  Notifications --> Responsable : confirmation
+else conflit detecte
+  Planning --> Portail : afficherConflit()
+  Portail --> Responsable : demander modification
+end
+
+@enduml
+
